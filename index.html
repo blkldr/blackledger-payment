@@ -21,8 +21,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
+            justify-content: flex-start;
             padding: 20px;
         }
 
@@ -30,151 +29,129 @@
             max-width: 650px;
             width: 100%;
             border: 1px solid #113311;
-            padding: 30px;
+            padding: 25px;
             background: #080808;
             box-shadow: 0 0 25px rgba(0, 255, 102, 0.08);
+            margin-top: 10px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-bottom: 1px dashed #113311;
             padding-bottom: 15px;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             letter-spacing: 2px;
             color: #fff;
             text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
         }
 
         .tagline {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #666;
             margin-top: 5px;
             letter-spacing: 1px;
         }
 
-        .user-identity {
+        /* Identity Box */
+        .identity-box {
             background: #030303;
-            border: 1px dashed #222;
-            padding: 10px;
+            border: 1px solid #1a3a1a;
+            padding: 12px;
             margin-bottom: 20px;
             font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            color: #888;
+            color: #aaa;
         }
 
+        .identity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 6px;
+            color: #00ff66;
+        }
+
+        /* Rooms Grid */
         .rooms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
-            gap: 12px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .room-card {
             background: #0c0c0c;
-            border: 1px solid #222;
-            padding: 12px;
+            border: 1px solid #00ff66;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-        }
-
-        .room-card.unlocked {
-            border-color: #00ff66;
             color: #00ff66;
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
         }
 
-        .room-card.locked {
-            border-color: #331111;
-            color: #555;
-            cursor: not-allowed;
-        }
-
-        .room-card:hover:not(.locked) {
+        .room-card:hover {
             background: #00ff66;
             color: #000;
         }
 
+        /* Terminal Box */
         .terminal-box {
             background: #000;
             border: 1px solid #222;
-            padding: 20px;
-            min-height: 160px;
-            position: relative;
+            padding: 18px;
+            min-height: 180px;
+            margin-bottom: 20px;
         }
 
         .terminal-title {
-            font-size: 0.8rem;
-            color: #444;
-            margin-bottom: 10px;
+            font-size: 0.75rem;
+            color: #555;
+            margin-bottom: 8px;
             text-transform: uppercase;
         }
 
         .terminal-content {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.5;
             color: #ccc;
         }
 
-        .input-group {
-            margin-top: 15px;
-            display: flex;
-            gap: 10px;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            background: #030303;
-            border: 1px solid #333;
-            padding: 10px;
-            color: #00ff66;
-            font-family: 'Share Tech Mono', monospace;
-            outline: none;
-        }
-
-        input[type="text"]:focus {
-            border-color: #00ff66;
+        /* Event Banner */
+        .event-banner {
+            background: #110505;
+            border: 1px dashed #551111;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #ff6666;
+            text-align: center;
         }
 
         button {
             background: #00ff66;
             color: #000;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 15px;
             font-family: 'Share Tech Mono', monospace;
             font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.2s;
+            margin-top: 10px;
         }
 
         button:hover {
             opacity: 0.8;
         }
 
-        .share-box {
-            margin-top: 12px;
-            background: #050f05;
-            border: 1px solid #113311;
-            padding: 10px;
+        .archive-section {
+            background: #030303;
+            border: 1px dashed #333;
+            padding: 15px;
+            margin-top: 15px;
             font-size: 0.85rem;
-            color: #00ff66;
             display: none;
-            word-break: break-all;
-        }
-
-        .glitch {
-            animation: glitch 1s infinite;
-        }
-
-        @keyframes glitch {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
         }
     </style>
 </head>
@@ -186,92 +163,74 @@
             <div class="tagline">"You don't join it. You discover it."</div>
         </div>
 
-        <div class="user-identity">
-            <div>STATUS: <span id="userStatus" style="color:#00ff66;">WANDERER</span></div>
-            <div>YOUR DUO KEY: <span id="userDuoKey" style="color:#fff; font-weight:bold;">UKN-7742</span></div>
+        <!-- 1. Secret Identity Box -->
+        <div class="identity-box">
+            <div>IDENTITY: <span id="subjectId" style="color:#fff; font-weight:bold;">SUBJECT 7F-21</span></div>
+            <div class="identity-grid">
+                <div>Level: <span id="currLevel">01</span></div>
+                <div>Trust: <span id="currTrust">50%</span></div>
+                <div>Secrets Found: <span id="currSecrets">2</span></div>
+                <div>Doors Opened: <span id="currDoors">1</span></div>
+            </div>
         </div>
 
+        <!-- 4. Daily 11:11 Live Event Banner -->
+        <div class="event-banner" id="eventBanner">
+            ⚡ LIVE EVENT [11:11 PROTOCOL]: Room 03 Trust Game is active. Server closes in <span id="timer">06:42:15</span>
+        </div>
+
+        <!-- Rooms Grid (Sabhi unlocked for testing) -->
         <div class="rooms-grid" id="roomsGrid"></div>
 
+        <!-- Terminal Box -->
         <div class="terminal-box">
-            <div class="terminal-title" id="terminalTitle">SYSTEM STATUS: AWAITING INPUT</div>
+            <div class="terminal-title" id="terminalTitle">SYSTEM STATUS: READY</div>
             <div class="terminal-content" id="terminalContent">
-                Select an unlocked room above to begin your descent. Room 01 is open to all wanderers.
+                WELCOME BACK, SUBJECT 7F-21.<br>You left something unfinished in the network. Select any room above to explore its core mechanics.
             </div>
-            <div class="input-group" id="inputGroup" style="display: none;">
-                <input type="text" id="passcodeInput" placeholder="Enter room key or friend's Duo code...">
-                <button onclick="verifyKey()">SUBMIT</button>
-            </div>
-            <div class="share-box" id="shareBox">
-                Share this Duo code with a friend so they can enter: <b id="displayDuoCode">UKN-7742</b>
-            </div>
+        </div>
+
+        <!-- 7. Personal Archive Trigger -->
+        <button onclick="toggleArchive()">VIEW MY UNKNOWN ARCHIVE</button>
+
+        <div class="archive-section" id="archiveSection">
+            <h3 style="color:#fff; margin-bottom: 8px;">// YOUR UNKNOWN DOSSIER</h3>
+            <p>Status: Active Wanderer</p>
+            <p>Cases Solved: 4 / 30</p>
+            <p>Partner Keys Linked: 1 (Duo Pass #UKN-884)</p>
+            <p style="margin-top: 8px; color:#00ff66;">[30-Day Final Encrypted File will generate on Day 30]</p>
         </div>
     </div>
 
     <script>
         const rooms = [
-            { id: 1, name: "ROOM 01", status: "unlocked", desc: "The signal is faint. Clue: What year are we trying to escape from? (Hint: 2042)", locked: false, code: "2042" },
-            { id: 2, name: "ROOM 02", status: "locked", desc: "DUO PROTOCOL: This room requires a partner. Enter a friend's Duo Pass code or crack the cipher.", locked: true, code: "DUO-99" },
-            { id: 3, name: "ROOM 03", status: "locked", desc: "The Trust Game vault. Locked until system synchronization.", locked: true, code: "TRUST" },
-            { id: 4, name: "ROOM 04", status: "locked", desc: "Encrypted Archive. Only accessible to active members.", locked: true, code: "UNKNOWN" },
-            { id: 5, name: "ROOM 05", status: "locked", desc: "The Final Door. (Locked for 30 Days)", locked: true, code: "FINAL" }
+            { id: 1, name: "ROOM 01", desc: "The Signal. Clue discovered: The year 2042 is closer than it appears." },
+            { id: 2, name: "ROOM 02", desc: "Duo Chamber. Requires a partner's frequency to decode the secondary layer." },
+            { id: 3, name: "ROOM 03", desc: "Trust Game Active. System is analyzing behavioral matches between linked users." },
+            { id: 4, name: "ROOM 04", desc: "Hidden Archive. Unlocked via external Instagram clue #17-03-11." },
+            { id: 5, name: "ROOM 05", desc: "The Final Vault. Awaiting full 30-day network synchronization." }
         ];
-
-        let currentActiveRoom = null;
-        let myDuoCode = "UKN-" + Math.floor(1000 + Math.random() * 9000);
-        document.getElementById('userDuoKey').innerText = myDuoCode;
-        document.getElementById('displayDuoCode').innerText = myDuoCode;
 
         function renderRooms() {
             const grid = document.getElementById('roomsGrid');
             grid.innerHTML = '';
             rooms.forEach(room => {
                 const card = document.createElement('div');
-                card.className = `room-card ${room.locked ? 'locked' : 'unlocked'}`;
-                card.innerHTML = `<div>${room.name}</div><div style="font-size:0.7rem; margin-top:5px;">${room.locked ? '◼ LOCKED' : '✓ OPEN'}</div>`;
-                card.onclick = () => selectRoom(room.id);
+                card.className = 'room-card';
+                card.innerHTML = `<div>${room.name}</div><div style="font-size:0.7rem; margin-top:4px;">✓ UNLOCKED</div>`;
+                card.onclick = () => selectRoom(room);
                 grid.appendChild(card);
             });
         }
 
-        function selectRoom(id) {
-            const room = rooms.find(r => r.id === id);
-            currentActiveRoom = room;
-            const title = document.getElementById('terminalTitle');
-            const content = document.getElementById('terminalContent');
-            const inputGroup = document.getElementById('inputGroup');
-            const shareBox = document.getElementById('shareBox');
-
-            title.innerText = `ACCESSING: ${room.name}`;
-            
-            if (room.locked) {
-                content.innerHTML = `<span class="glitch" style="color:#ff3333;">ACCESS DENIED.</span><br>${room.desc}<br><br>Override with security key or friend's Duo code:`;
-                inputGroup.style.display = 'flex';
-                shareBox.style.display = 'none';
-            } else {
-                content.innerHTML = `${room.desc}<br><br><span style="color:#00ff66;">[Status: Unlocked successfully]</span>`;
-                inputGroup.style.display = 'none';
-                if(room.id === 1) {
-                    shareBox.style.display = 'block';
-                } else {
-                    shareBox.style.display = 'none';
-                }
-            }
+        function selectRoom(room) {
+            document.getElementById('terminalTitle').innerText = `ACCESSING: ${room.name}`;
+            document.getElementById('terminalContent').innerHTML = `${room.desc}<br><br><span style="color:#00ff66;">[Status: Fully functional simulation mode]</span>`;
         }
 
-        function verifyKey() {
-            const val = document.getElementById('passcodeInput').value.trim();
-            if (currentActiveRoom && (val === currentActiveRoom.code || val.startsWith("UKN-"))) {
-                currentActiveRoom.locked = false;
-                currentActiveRoom.status = "unlocked";
-                alert("ACCESS GRANTED. The system acknowledges your partnership/key.");
-                document.getElementById('passcodeInput').value = '';
-                document.getElementById('userStatus').innerText = "SYNCHRONIZED";
-                renderRooms();
-                selectRoom(currentActiveRoom.id);
-            } else {
-                alert("INVALID KEY. Check your clues or ask your friend for their Duo pass.");
-            }
+        function toggleArchive() {
+            const arch = document.getElementById('archiveSection');
+            arch.style.display = arch.style.display === 'block' ? 'none' : 'block';
         }
 
         renderRooms();
